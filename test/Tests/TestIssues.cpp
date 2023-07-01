@@ -1373,3 +1373,10 @@ GAME_TEST(Issues, Issue1036) {
     EXPECT_TRUE(pParty->pCharacters[2].pActiveSkills[CHARACTER_SKILL_LEARNING]);
     EXPECT_TRUE(pParty->pCharacters[2].pActiveSkills[CHARACTER_SKILL_MEDITATION]);
 }
+
+GAME_TEST(Issues, Issue1040) {
+    // In this trace one dark party speaks to Gary Zimm in Bracada
+    // The party has nothing to say. The game should not crash.
+    test->playTraceFromTestData("issue_1040.mm7", "issue_1040.json");
+}
+
