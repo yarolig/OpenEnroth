@@ -264,28 +264,24 @@ void Arena_SelectionFightLevel() {
 
 void ArenaFight() {
     const int LAST_ARENA_FIGHTER_TYPE = 258;
-    int v0;                  // edi@1
-    int v3;                  // eax@10
-    signed int v4;           // esi@10
-    signed int v6;           // ebx@34
-    signed int v13;          // eax@49
-    int v14;                 // esi@49
-    int v15;                 // edx@50
-    signed int v17;          // ecx@51
-    int v18;                 // edx@53
-    int i;                   // edi@55
-    signed int v22;          // [sp-4h] [bp-144h]@51
-    int16_t v23[LAST_ARENA_FIGHTER_TYPE] {};        // [sp+Ch] [bp-134h]@39
-    int16_t monster_ids[6] {};  // [sp+128h] [bp-18h]@56
-    int v26;                 // [sp+134h] [bp-Ch]@1
-    int num_monsters;        // [sp+13Ch] [bp-4h]@17
+    int textHeight;                       // edi@1
+    int characterLevel;                   // eax@10
+    signed int minMonsterLevel;           // esi@10
+    int maxMonsterLevel;
+    signed int availableMonsterTypesCount;// ebx@34
+    signed int goldMultiplier;            // eax@49
+    int monstersCount;                    // esi@49
+    int16_t availableMonsterTypes[LAST_ARENA_FIGHTER_TYPE] {}; // [sp+Ch] [bp-134h]@39
+    int16_t monster_ids[6] {};            // [sp+128h] [bp-18h]@56
+    int monsterLevel;                     // [sp+134h] [bp-Ch]@1
+    int monsterTypesCount;                // [sp+13Ch] [bp-4h]@17
 
-    v26 = 0;
+    monsterLevel = 0;
     pParty->field_7B5_in_arena_quest = uDialogueType;
     GUIWindow window = *pDialogueWindow;
     window.uFrameWidth = game_viewport_width;
     window.uFrameZ = 452;
-    v0 = pFontArrus->CalcTextHeight(
+    textHeight = pFontArrus->CalcTextHeight(
         localization->GetString(LSTR_PLEASE_WAIT_WHILE_I_SUMMON),
         window.uFrameWidth, 13) + 7;
     render->BeginScene3D();
@@ -298,15 +294,15 @@ void ArenaFight() {
     render->DrawBillboards_And_MaybeRenderSpecialEffects_And_EndScene();
     render->BeginScene2D();
 
-    render->DrawTextureCustomHeight(8 / 640.0f, (352 - v0) / 480.0f,
-                                    ui_leather_mm7, v0);
+    render->DrawTextureCustomHeight(8 / 640.0f, (352 - textHeight) / 480.0f,
+                                    ui_leather_mm7, textHeight);
 
-    render->DrawTextureNew(8 / 640.0f, (347 - v0) / 480.0f,
+    render->DrawTextureNew(8 / 640.0f, (347 - textHeight) / 480.0f,
                                 _591428_endcap);
-    std::string v1 = pFontArrus->FitTextInAWindow(
+    std::string text = pFontArrus->FitTextInAWindow(
         localization->GetString(LSTR_PLEASE_WAIT_WHILE_I_SUMMON), window.uFrameWidth,
         13);
-    pDialogueWindow->DrawText(pFontArrus, {13, 354 - v0}, colorTable.White, v1);
+    pDialogueWindow->DrawText(pFontArrus, {13, 354 - textHeight}, colorTable.White, text);
     render->Present();
     pParty->pos = Vec3i(3849, 5770, 1);
     pParty->speed = Vec3i();
@@ -314,103 +310,78 @@ void ArenaFight() {
     pParty->_viewYaw = 512;
     pParty->_viewPitch = 0;
     engine->_messageQueue->addMessageCurrentFrame(UIMSG_Escape, 1, 0);
-    // v2 = pParty->pCharacters.data();
-    for (uint i = 0; i < 4; i++) {
-        v3 = pParty->pCharacters[i].GetActualLevel();
-        v4 = v26;
-        if (v3 > v26) {
-            v26 = pParty->pCharacters[i].GetActualLevel();
-            v4 = pParty->pCharacters[i].GetActualLevel();
+    for (int i = 0; i < 4; i++) {
+        characterLevel = pParty->pCharacters[i].GetActualLevel();
+        if (characterLevel > monsterLevel) {
+            monsterLevel = characterLevel;
+            minMonsterLevel = characterLevel;
         }
-        // ++v2;
-    }
-    // while ( (signed int)v2 < (signed int)pParty->pHirelings.data() );
-    if (uDialogueType == DIALOGUE_ARENA_SELECT_PAGE) {
-        num_monsters = v4;
-        v4 /= 2;
-    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_SQUIRE) {
-        // v5 = (int64_t)((double)v26 * 1.5);
-        num_monsters = (int)((double)v26 * 1.5);
-        v4 /= 2;
-    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_KNIGHT) {
-        // LODWORD(v5) = 2 * v4;
-        num_monsters = 2 * v4;
-        v4 /= 2;
-    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_CHAMPION) {
-        num_monsters = 2 * v4;
-        v4 /= 2;
-    }
-    if (v4 < 1) v4 = 1;
-    if (v4 > 100) v4 = 100;
-    if (num_monsters > 100) num_monsters = 100;
-    if (v4 < 2) v4 = 2;
-    if (num_monsters < 2) num_monsters = 2;
-    v6 = 0;
-    // v27 = 1;
-    // v7 = (char *)&pMonsterStats->pInfos[1].uLevel;
-    for (unsigned int i = 1; i <= LAST_ARENA_FIGHTER_TYPE; i++) {
-        if (pMonsterStats->pInfos[i].uAIType != 1) {  // if ( v7[8] != 1 )
-            if (!MonsterStats::BelongsToSupertype(
-                    pMonsterStats->pInfos[i].uID,
-                    MONSTER_SUPERTYPE_8)) {  //! MonsterStats::BelongsToSupertype(*((short
-                                             //! *)v7 + 22), MONSTER_SUPERTYPE_8)
-                // v8 = (uint8_t)pMonsterStats->pInfos[i].uLevel;
-                if (pMonsterStats->pInfos[i].uLevel >= v4) {
-                    if (pMonsterStats->pInfos[i].uLevel <= num_monsters)
-                        v23[v6++] = i;
-                }
-            }
-        }
-        // ++v27;
-        // v7 += 88;
-    }
-    // while ( (signed int)v7 <= (signed int)&pMonsterStats->pInfos[258].uLevel
-    // );
-    num_monsters = 6;
-    if (v6 < 6) num_monsters = v6;
-    // v9 = 0;
-    if (num_monsters > 0) {
-        for (uint i = 0; i < num_monsters; i++) {
-            // v10 = rand();
-            // ++v9;
-            // v12 = __OFSUB__(v9, num_monsters);
-            // v11 = v9 - num_monsters < 0;
-            // *((short *)&window.pControlsTail + v9 + 1) = v23[rand() % v6];
-            monster_ids[i] = v23[grng->random(v6)];
-        }
-        // while ( v11 ^ v12 );
     }
 
     if (uDialogueType == DIALOGUE_ARENA_SELECT_PAGE) {
-        v17 = 3;
-        v22 = 50;
-        v18 = grng->random(v17);
-        v13 = v22;
-        v14 = v18 + 6;
+        maxMonsterLevel = monsterLevel;
+        minMonsterLevel = monsterLevel / 2;
     } else if (uDialogueType == DIALOGUE_ARENA_SELECT_SQUIRE) {
-        v17 = 7;
-        v22 = 100;
-        v18 = grng->random(v17);
-        v13 = v22;
-        v14 = v18 + 6;
+        maxMonsterLevel = (int)((double)monsterLevel * 1.5);
+        minMonsterLevel = monsterLevel / 2;
     } else if (uDialogueType == DIALOGUE_ARENA_SELECT_KNIGHT) {
-        v15 = grng->random(11);
-        v13 = 200;
-        v14 = v15 + 10;
+        maxMonsterLevel = monsterLevel * 2;
+        minMonsterLevel = monsterLevel / 2;
+    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_CHAMPION) {
+        maxMonsterLevel = monsterLevel * 2;
+        minMonsterLevel = monsterLevel / 2;
     } else {
-        if (uDialogueType == DIALOGUE_ARENA_SELECT_CHAMPION) {
-            v13 = 500;
-            v14 = 20;
-        }
-        // else
-        //{
-        // v14 = v27;
-        // v13 = gold_transaction_amount;
-        //}
+        assert(false && "Invalid uDialogueType");
+        uDialogueType = DIALOGUE_ARENA_SELECT_CHAMPION;
+        maxMonsterLevel = 100;
+        minMonsterLevel = 100;
     }
-    gold_transaction_amount = v26 * v13;
-    for (i = 0; i < v14; ++i)
-        Actor::Arena_summon_actor(monster_ids[grng->random(num_monsters)],
+
+    if (minMonsterLevel < 2) minMonsterLevel = 2;
+    if (maxMonsterLevel < 2) maxMonsterLevel = 2;
+    if (minMonsterLevel > 100) minMonsterLevel = 100;
+    if (maxMonsterLevel > 100) maxMonsterLevel = 100;
+
+    availableMonsterTypesCount = 0;
+    for (int i = 1; i <= LAST_ARENA_FIGHTER_TYPE; i++) {
+        if (pMonsterStats->pInfos[i].uAIType == 1)
+            continue;
+
+        if (MonsterStats::BelongsToSupertype(
+                pMonsterStats->pInfos[i].uID,
+                MONSTER_SUPERTYPE_8))
+            continue;
+
+        if (minMonsterLevel <= pMonsterStats->pInfos[i].uLevel &&
+            pMonsterStats->pInfos[i].uLevel <= maxMonsterLevel)
+        {
+            availableMonsterTypes[availableMonsterTypesCount++] = i;
+        }
+    }
+    monsterTypesCount = 6;
+    if (availableMonsterTypesCount < 6) monsterTypesCount = availableMonsterTypesCount;
+    if (monsterTypesCount > 0) {
+        for (int i = 0; i < monsterTypesCount; i++) {
+            monster_ids[i] = availableMonsterTypes[grng->random(availableMonsterTypesCount)];
+        }
+    }
+
+    if (uDialogueType == DIALOGUE_ARENA_SELECT_PAGE) {
+        goldMultiplier = 50;
+        monstersCount = grng->random(3) + 6;
+    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_SQUIRE) {
+        goldMultiplier = 100;
+        monstersCount = grng->random(7) + 6;
+    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_KNIGHT) {
+        goldMultiplier = 200;
+        monstersCount = grng->random(11) + 10;
+    } else if (uDialogueType == DIALOGUE_ARENA_SELECT_CHAMPION) {
+        goldMultiplier = 500;
+        monstersCount = 20;
+    }
+    gold_transaction_amount = monsterLevel * goldMultiplier;
+    for (int i = 0; i < monstersCount; ++i)
+        Actor::Arena_summon_actor(monster_ids[grng->random(monsterTypesCount)],
                                   pMonsterArenaPlacements[i].x,
                                   pMonsterArenaPlacements[i].y, 1);
     pAudioPlayer->playUISound(SOUND_51heroism03);
