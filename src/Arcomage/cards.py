@@ -1,98 +1,7 @@
-#include "Arcomage.h"
+#  DO NOT COMMIT TO OpenEnroth
 
-ArcomageCard pCards[87] = {
-    { .pCardName="Brick Shortage", .card_resource_type=1, .to_pl_enm_bricks=-8},
-    { .pCardName="Lucky Cache", .slot=1, .card_resource_type=1, .field_30=1, .to_player_bricks=2, .to_player_gems=2},
-    { .pCardName="Friendly Terrain", .slot=2, .card_resource_type=1, .needed_bricks=1, .field_30=1, .to_player_wall=1},
-    { .pCardName="Miners", .slot=3, .card_resource_type=1, .needed_bricks=3, .to_player_quarry_lvl=1},
-    { .pCardName="Mother Lode", .slot=4, .card_resource_type=1, .needed_bricks=4, .compare_param=2, .to_player_quarry_lvl=2, .to_player_quarry_lvl2=1},
-    { .pCardName="Dwarven Miners", .slot=5, .card_resource_type=1, .needed_bricks=7, .to_player_quarry_lvl=1, .to_player_wall=4},
-    { .pCardName="Work Overtime", .slot=6, .card_resource_type=1, .needed_bricks=2, .to_player_gems=-6, .to_player_wall=5},
-    { .pCardName="Copping the Tech", .slot=7, .card_resource_type=1, .needed_bricks=5, .compare_param=2, .to_player_quarry_lvl=99},
-    { .pCardName="Basic Wall", .slot=8, .card_resource_type=1, .needed_bricks=2, .to_player_wall=3},
-    { .pCardName="Sturdy Wall", .slot=9, .card_resource_type=1, .needed_bricks=3, .to_player_wall=4},
-    { .pCardName="Innovations", .slot=10, .card_resource_type=1, .needed_bricks=2, .to_player_gems=4, .to_pl_enm_quarry_lvl=1},
-    { .pCardName="Foundations", .slot=11, .card_resource_type=1, .needed_bricks=3, .compare_param=11, .to_player_wall=6, .to_player_wall2=3},
-    { .pCardName="Tremors", .slot=12, .card_resource_type=1, .needed_bricks=7, .field_30=1, .to_pl_enm_wall=-5},
-    { .pCardName="Secret Room", .slot=13, .card_resource_type=1, .needed_bricks=8, .field_30=1, .to_player_magic_lvl=1},
-    { .pCardName="Earthquake", .slot=14, .card_resource_type=1, .to_pl_enm_quarry_lvl=-1},
-    { .pCardName="Big Wall", .slot=15, .card_resource_type=1, .needed_bricks=5, .to_player_wall=6},
-    { .pCardName="Collapse!", .slot=16, .card_resource_type=1, .needed_bricks=4, .to_enemy_quarry_lvl=-1},
-    { .pCardName="New Equipment", .slot=17, .card_resource_type=1, .needed_bricks=6, .to_player_quarry_lvl=2},
-    { .pCardName="Strip Mine", .slot=18, .card_resource_type=1, .to_player_quarry_lvl=-1, .to_player_gems=5, .to_player_wall=10},
-    { .pCardName="Reinforced Wall", .slot=19, .card_resource_type=1, .needed_bricks=8, .to_player_wall=8},
-    { .pCardName="Porticulus", .slot=20, .card_resource_type=1, .needed_bricks=9, .to_player_zoo_lvl=1, .to_player_wall=5},
-    { .pCardName="Crystal Rocks", .slot=21, .card_resource_type=1, .needed_bricks=9, .to_player_gems=7, .to_player_wall=7},
-    { .pCardName="Harmonic Ore", .slot=22, .card_resource_type=1, .needed_bricks=11, .to_player_wall=6, .to_player_tower=3},
-    { .pCardName="Mondo Wall", .slot=23, .card_resource_type=1, .needed_bricks=13, .to_player_wall=12},
-    { .pCardName="Focused Designs", .slot=24, .card_resource_type=1, .needed_bricks=15, .to_player_wall=8, .to_player_tower=5},
-    { .pCardName="Great Wall", .slot=25, .card_resource_type=1, .needed_bricks=16, .to_player_wall=15},
-    { .pCardName="Rock Launcer", .slot=26, .card_resource_type=1, .needed_bricks=18, .to_player_wall=6, .to_enemy_buildings=-10},
-    { .pCardName="Dragon's Heart", .slot=27, .card_resource_type=1, .needed_bricks=24, .to_player_wall=20, .to_player_tower=8},
-    { .pCardName="Quartz", .slot=30, .card_resource_type=2, .needed_gems=1, .field_30=1, .to_player_tower=1},
-    { .pCardName="Smoky Quartz", .slot=31, .card_resource_type=2, .needed_gems=2, .field_30=1, .to_enemy_tower=-1},
-    { .pCardName="Amethyst", .slot=32, .card_resource_type=2, .needed_gems=2, .to_player_tower=3},
-    { .pCardName="Spell Weavers", .slot=33, .card_resource_type=2, .needed_gems=3, .to_player_magic_lvl=1},
-    { .pCardName="Prism", .slot=34, .card_resource_type=2, .needed_gems=2, .field_30=1, .draw_extra_card_count=1},
-    { .pCardName="Lodestone", .slot=35, .card_resource_type=2, .needed_gems=5, .can_be_discarded=0, .to_player_tower=3},
-    { .pCardName="Solar Flare", .slot=36, .card_resource_type=2, .needed_gems=4, .to_player_tower=2, .to_enemy_tower=-2},
-    { .pCardName="Crystal Matrix", .slot=37, .card_resource_type=2, .needed_gems=6, .to_player_magic_lvl=1, .to_player_tower=3, .to_enemy_tower=1},
-    { .pCardName="Gemstone Flaw", .slot=38, .card_resource_type=2, .needed_gems=2, .to_enemy_tower=-3},
-    { .pCardName="Ruby", .slot=39, .card_resource_type=2, .needed_gems=3, .to_player_tower=5},
-    { .pCardName="Gem Spear", .slot=40, .card_resource_type=2, .needed_gems=4, .to_enemy_tower=-5},
-    { .pCardName="Power Burn", .slot=41, .card_resource_type=2, .needed_gems=3, .to_player_magic_lvl=2, .to_player_tower=-5},
-    { .pCardName="Harmonic Vibe", .slot=42, .card_resource_type=2, .needed_gems=7, .to_player_magic_lvl=1, .to_player_wall=3, .to_player_tower=3},
-    { .pCardName="Parity", .slot=43, .card_resource_type=2, .needed_gems=7, .compare_param=3, .to_player_magic_lvl=99, .to_enemy_magic_lvl2=99},
-    { .pCardName="Emerald", .slot=44, .card_resource_type=2, .needed_gems=6, .to_player_tower=8},
-    { .pCardName="Pearl of Wisdom", .slot=45, .card_resource_type=2, .needed_gems=9, .to_player_magic_lvl=1, .to_player_tower=5},
-    { .pCardName="Shatter", .slot=46, .card_resource_type=2, .needed_gems=8, .to_player_magic_lvl=-1, .to_enemy_tower=-9},
-    { .pCardName="Crumblestone", .slot=47, .card_resource_type=2, .needed_gems=7, .to_player_tower=5, .to_enemy_bricks=-6},
-    { .pCardName="Sapphire", .slot=48, .card_resource_type=2, .needed_gems=10, .to_player_tower=11},
-    { .pCardName="Discord", .slot=49, .card_resource_type=2, .needed_gems=5, .to_pl_enm_magic_lvl=-1, .to_pl_enm_buildings=-7},
-    { .pCardName="Fire Ruby", .slot=50, .card_resource_type=2, .needed_gems=13, .to_player_tower=6, .to_enemy_tower=-4},
-    { .pCardName="Quarry's Help", .slot=51, .card_resource_type=2, .needed_gems=4, .to_player_bricks=-10, .to_player_tower=7},
-    { .pCardName="Crystal Shield", .slot=52, .card_resource_type=2, .needed_gems=12, .to_player_wall=3, .to_player_tower=8},
-    { .pCardName="Empathy Gem", .slot=53, .card_resource_type=2, .needed_gems=14, .to_player_zoo_lvl=1, .to_player_tower=8},
-    { .pCardName="Diamond", .slot=54, .card_resource_type=2, .needed_gems=16, .to_player_tower=15},
-    { .pCardName="Sanctuary", .slot=55, .card_resource_type=2, .needed_gems=15, .to_player_beasts=5, .to_player_wall=5, .to_player_tower=10},
-    { .pCardName="Lava Jewel", .slot=56, .card_resource_type=2, .needed_gems=17, .to_player_tower=12, .to_enemy_buildings=-6},
-    { .pCardName="Dragon's Eye", .slot=57, .card_resource_type=2, .needed_gems=21, .to_player_tower=20},
-    { .pCardName="Mad Cow Disease", .slot=60, .card_resource_type=3, .to_pl_enm_beasts=-6},
-    { .pCardName="Faerie", .slot=61, .card_resource_type=3, .needed_beasts=1, .field_30=1, .to_enemy_buildings=-2},
-    { .pCardName="Moody Goblins", .slot=62, .card_resource_type=3, .needed_beasts=1, .to_player_gems=-3, .to_enemy_buildings=-4},
-    { .pCardName="Husbandry", .slot=63, .card_resource_type=3, .needed_beasts=3, .to_player_zoo_lvl=1},
-    { .pCardName="Elvin Scout", .slot=64, .card_resource_type=3, .needed_beasts=2, .field_30=1, .draw_extra_card_count=1},
-    { .pCardName="Goblin Mob", .slot=65, .card_resource_type=3, .needed_beasts=3, .to_player_buildings=-3, .to_enemy_buildings=-6},
-    { .pCardName="Goblin Archers", .slot=66, .card_resource_type=3, .needed_beasts=4, .to_player_buildings=-1, .to_enemy_tower=-3},
-    { .pCardName="Shadow Faerie", .slot=67, .card_resource_type=3, .needed_beasts=6, .field_30=1, .to_enemy_tower=-2},
-    { .pCardName="Orc", .slot=68, .card_resource_type=3, .needed_beasts=3, .to_enemy_buildings=-5},
-    { .pCardName="Dwarves", .slot=69, .card_resource_type=3, .needed_beasts=5, .to_player_wall=3, .to_enemy_buildings=-4},
-    { .pCardName="Little Snakes", .slot=70, .card_resource_type=3, .needed_beasts=6, .to_enemy_tower=-4},
-    { .pCardName="Troll Keepers", .slot=71, .card_resource_type=3, .needed_beasts=7, .to_player_zoo_lvl=2},
-    { .pCardName="Tower Gremlins", .slot=72, .card_resource_type=3, .needed_beasts=8, .to_player_wall=4, .to_player_tower=2, .to_enemy_buildings=-2},
-    { .pCardName="Full Moon", .slot=73, .card_resource_type=3, .to_player_beasts=3, .to_pl_enm_zoo_lvl=1},
-    { .pCardName="Slasher", .slot=74, .card_resource_type=3, .needed_beasts=5, .to_enemy_buildings=-6},
-    { .pCardName="Ogre", .slot=75, .card_resource_type=3, .needed_beasts=6, .to_enemy_buildings=-7},
-    { .pCardName="Rabid Sheep", .slot=76, .card_resource_type=3, .needed_beasts=6, .to_enemy_beasts=-3, .to_enemy_buildings=-6},
-    { .pCardName="Imp", .slot=77, .card_resource_type=3, .needed_beasts=5, .to_enemy_buildings=-6, .to_pl_enm_bricks=-5, .to_pl_enm_gems=-5, .to_pl_enm_beasts=-5},
-    { .pCardName="Spizzer", .slot=78, .card_resource_type=3, .needed_beasts=8, .compare_param=13, .to_enemy_buildings=-10, .to_enemy_buildings2=-6},
-    { .pCardName="Werewolf", .slot=79, .card_resource_type=3, .needed_beasts=9, .to_enemy_buildings=-9},
-    { .pCardName="Corrosion Cloud", .slot=80, .card_resource_type=3, .needed_beasts=11, .compare_param=14, .to_enemy_buildings=-10, .to_enemy_buildings2=-7},
-    { .pCardName="Unicorn", .slot=81, .card_resource_type=3, .needed_beasts=9, .compare_param=9, .to_enemy_buildings=-12, .to_enemy_buildings2=-8},
-    { .pCardName="Elvin Archers", .slot=82, .card_resource_type=3, .needed_beasts=10, .compare_param=19, .to_enemy_tower=-6, .to_enemy_buildings2=-6},
-    { .pCardName="Succubus", .slot=83, .card_resource_type=3, .needed_beasts=14, .to_enemy_beasts=-8, .to_enemy_tower=-5},
-    { .pCardName="Rock Stompers", .slot=84, .card_resource_type=3, .needed_beasts=11, .to_enemy_quarry_lvl=-1, .to_enemy_buildings=-8},
-    { .pCardName="Thief", .slot=85, .card_resource_type=3, .needed_beasts=12, .to_player_bricks=3, .to_player_gems=5, .to_enemy_bricks=-5, .to_enemy_gems=-10},
-    { .pCardName="Stone Giant", .slot=86, .card_resource_type=3, .needed_beasts=15, .to_player_wall=4, .to_enemy_buildings=-10},
-    { .pCardName="Vampire", .slot=87, .card_resource_type=3, .needed_beasts=17, .to_enemy_zoo_lvl=-1, .to_enemy_bricks=-5, .to_enemy_gems=-10},
-    { .pCardName="Dragon", .slot=88, .card_resource_type=3, .needed_beasts=25, .to_enemy_zoo_lvl=-1, .to_enemy_gems=-10, .to_enemy_buildings=-20},
-    { .pCardName="Forced Labor", .slot=28, .card_resource_type=1, .needed_bricks=7, .to_player_beasts=-5, .to_player_wall=9},
-    { .pCardName="Crystallize", .slot=58, .card_resource_type=2, .needed_gems=8, .to_player_wall=-6, .to_player_tower=11}
-};
-
-// DO NOT COMMIT TO OpenEnroth
-ArcomageCard pCardsOld[87] = {
-    {"Brick Shortage",
+cards = [
+    ["Brick Shortage",
      0,
      1,
      0,
@@ -162,9 +71,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Lucky Cache",
+    ["Lucky Cache",
      1,
      1,
      0,
@@ -234,9 +143,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Friendly Terrain",
+    ["Friendly Terrain",
      2,
      1,
      0,
@@ -306,14 +215,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Miners", 3, 1, 0, 0, 0, 3, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0,
+    ["Miners", 3, 1, 0, 0, 0, 3, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0,
      0,        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Mother Lode",
+    ["Mother Lode",
      4,
      1,
      0,
@@ -383,9 +292,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Dwarven Miners",
+    ["Dwarven Miners",
      5,
      1,
      0,
@@ -455,9 +364,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Work Overtime",
+    ["Work Overtime",
      6,
      1,
      0,
@@ -527,9 +436,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Copping the Tech",
+    ["Copping the Tech",
      7,
      1,
      0,
@@ -599,9 +508,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Basic Wall",
+    ["Basic Wall",
      8,
      1,
      0,
@@ -671,9 +580,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Sturdy Wall",
+    ["Sturdy Wall",
      9,
      1,
      0,
@@ -743,9 +652,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Innovations",
+    ["Innovations",
      10,
      1,
      0,
@@ -815,9 +724,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Foundations",
+    ["Foundations",
      11,
      1,
      0,
@@ -887,14 +796,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Tremors", 12, 1,  0, 0, 0, 7, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    ["Tremors", 12, 1,  0, 0, 0, 7, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
      0,         0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  -5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,         0,  0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Secret Room",
+    ["Secret Room",
      13,
      1,
      0,
@@ -964,9 +873,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Earthquake",
+    ["Earthquake",
      14,
      1,
      0,
@@ -1036,19 +945,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Big Wall", 15, 1, 0, 0, 0, 5, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Big Wall", 15, 1, 0, 0, 0, 5, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Collapse!", 16, 1, 0, 0,  0, 4, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Collapse!", 16, 1, 0, 0,  0, 4, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,           0,  0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,           0,  0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,           0,  0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,           0,  0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"New Equipment",
+    ["New Equipment",
      17,
      1,
      0,
@@ -1118,9 +1027,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Strip Mine",
+    ["Strip Mine",
      18,
      1,
      0,
@@ -1190,9 +1099,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Reinforced Wall",
+    ["Reinforced Wall",
      19,
      1,
      0,
@@ -1262,9 +1171,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Porticulus",
+    ["Porticulus",
      20,
      1,
      0,
@@ -1334,9 +1243,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Crystal Rocks",
+    ["Crystal Rocks",
      21,
      1,
      0,
@@ -1406,9 +1315,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Harmonic Ore",
+    ["Harmonic Ore",
      22,
      1,
      0,
@@ -1478,9 +1387,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Mondo Wall",
+    ["Mondo Wall",
      23,
      1,
      0,
@@ -1550,9 +1459,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Focused Designs",
+    ["Focused Designs",
      24,
      1,
      0,
@@ -1622,9 +1531,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Great Wall",
+    ["Great Wall",
      25,
      1,
      0,
@@ -1694,9 +1603,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Rock Launcer",
+    ["Rock Launcer",
      26,
      1,
      0,
@@ -1766,9 +1675,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Dragon's Heart",
+    ["Dragon's Heart",
      27,
      1,
      0,
@@ -1838,14 +1747,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Quartz", 30, 2, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+    ["Quartz", 30, 2, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,
      0,        0,  0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Smoky Quartz",
+    ["Smoky Quartz",
      31,
      2,
      0,
@@ -1915,14 +1824,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Amethyst", 32, 2, 0, 0, 0, 0, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Amethyst", 32, 2, 0, 0, 0, 0, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Spell Weavers",
+    ["Spell Weavers",
      33,
      2,
      0,
@@ -1992,19 +1901,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Prism", 34, 2, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+    ["Prism", 34, 2, 0, 0, 0, 0, 2, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0,
      0,       0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,       0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,       0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,       0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Lodestone", 35, 2, 0, 0, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Lodestone", 35, 2, 0, 0, 0, 0, 5, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
      0,           0,  0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Solar Flare",
+    ["Solar Flare",
      36,
      2,
      0,
@@ -2074,9 +1983,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Crystal Matrix",
+    ["Crystal Matrix",
      37,
      2,
      0,
@@ -2146,9 +2055,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Gemstone Flaw",
+    ["Gemstone Flaw",
      38,
      2,
      0,
@@ -2218,19 +2127,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Ruby", 39, 2, 0, 0, 0, 0, 3, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Ruby", 39, 2, 0, 0, 0, 0, 3, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,      0,  0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,      0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,      0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,      0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Gem Spear", 40, 2, 0, 0, 0, 0, 4, 0, 1, 1, 0, 0,  0, 0, 0, 0, 0,
+    ["Gem Spear", 40, 2, 0, 0, 0, 0, 4, 0, 1, 1, 0, 0,  0, 0, 0, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0,
-     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0},
+     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0],
 
-    {"Power Burn",
+    ["Power Burn",
      41,
      2,
      0,
@@ -2300,9 +2209,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Harmonic Vibe",
+    ["Harmonic Vibe",
      42,
      2,
      0,
@@ -2372,19 +2281,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Parity", 43, 2, 0, 0, 0, 0, 7, 0, 1, 3, 0, 0, 0, 99, 0, 0,  0,
+    ["Parity", 43, 2, 0, 0, 0, 0, 7, 0, 1, 3, 0, 0, 0, 99, 0, 0,  0,
      0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0,  0,
      0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 99, 0,
-     0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0},
+     0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0],
 
-    {"Emerald", 44, 2, 0, 0, 0, 0, 6, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Emerald", 44, 2, 0, 0, 0, 0, 6, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Pearl of Wisdom",
+    ["Pearl of Wisdom",
      45,
      2,
      0,
@@ -2454,14 +2363,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Shatter", 46, 2, 0, 0, 0, 0, 8, 0, 1, 1, 0, 0,  0, -1, 0, 0, 0,
+    ["Shatter", 46, 2, 0, 0, 0, 0, 8, 0, 1, 1, 0, 0,  0, -1, 0, 0, 0,
      0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0,  0, 0, 0,
      0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0,  0, 0, 0,
-     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0,  0, 0},
+     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0,  0, 0],
 
-    {"Crumblestone",
+    ["Crumblestone",
      47,
      2,
      0,
@@ -2531,24 +2440,24 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Sapphire", 48, 2, 0,  0, 0, 0, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Sapphire", 48, 2, 0,  0, 0, 0, 10, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 11, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,          0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,          0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Discord", 49, 2, 0,  0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 0,  0, 0, 0,
+    ["Discord", 49, 2, 0,  0, 0, 0, 5, 0, 1, 1, 0, 0, 0, 0,  0, 0, 0,
      0,         0,  0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0,
      0,         0,  0, -7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0,
-     0,         0,  0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0},
+     0,         0,  0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0],
 
-    {"Fire Ruby", 50, 2, 0, 0, 0, 0, 13, 0, 1, 1, 0, 0,  0, 0, 0, 0, 0,
+    ["Fire Ruby", 50, 2, 0, 0, 0, 0, 13, 0, 1, 1, 0, 0,  0, 0, 0, 0, 0,
      0,           0,  0, 6, 0, 0, 0, 0,  0, 0, 0, 0, -4, 0, 0, 0, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0, 0, 0,
-     0,           0,  0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0, 0},
+     0,           0,  0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0,  0, 0, 0, 0],
 
-    {"Quarry's Help",
+    ["Quarry's Help",
      51,
      2,
      0,
@@ -2618,9 +2527,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Crystal Shield",
+    ["Crystal Shield",
      52,
      2,
      0,
@@ -2690,9 +2599,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Empathy Gem",
+    ["Empathy Gem",
      53,
      2,
      0,
@@ -2762,19 +2671,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Diamond", 54, 2, 0,  0, 0, 0, 16, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Diamond", 54, 2, 0,  0, 0, 0, 16, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 15, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,         0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Sanctuary", 55, 2, 0,  0, 0, 0, 15, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Sanctuary", 55, 2, 0,  0, 0, 0, 15, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      5,           0,  5, 10, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,           0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,           0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,           0,  0, 0,  0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Lava Jewel",
+    ["Lava Jewel",
      56,
      2,
      0,
@@ -2844,9 +2753,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Dragon's Eye",
+    ["Dragon's Eye",
      57,
      2,
      0,
@@ -2916,9 +2825,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Mad Cow Disease",
+    ["Mad Cow Disease",
      60,
      3,
      0,
@@ -2988,14 +2897,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Faerie", 61, 3, 0, 0, 0, 0, 0, 1, 1, 1,  1, 0, 0, 0, 0, 0, 0,
+    ["Faerie", 61, 3, 0, 0, 0, 0, 0, 1, 1, 1,  1, 0, 0, 0, 0, 0, 0,
      0,        0,  0, 0, 0, 0, 0, 0, 0, 0, -2, 0, 0, 0, 0, 0, 0, 0,
      0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0,
-     0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,        0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Moody Goblins",
+    ["Moody Goblins",
      62,
      3,
      0,
@@ -3065,14 +2974,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Husbandry", 63, 3, 0, 0, 0, 0, 0, 3, 1, 1, 0, 0, 0, 0, 1, 0, 0,
+    ["Husbandry", 63, 3, 0, 0, 0, 0, 0, 3, 1, 1, 0, 0, 0, 0, 1, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Elvin Scout",
+    ["Elvin Scout",
      64,
      3,
      0,
@@ -3142,9 +3051,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Goblin Mob",
+    ["Goblin Mob",
      65,
      3,
      0,
@@ -3214,9 +3123,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Goblin Archers",
+    ["Goblin Archers",
      66,
      3,
      0,
@@ -3286,9 +3195,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Shadow Faerie",
+    ["Shadow Faerie",
      67,
      3,
      0,
@@ -3358,19 +3267,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Orc", 68, 3, 0, 0, 0, 0, 0, 3, 1, 1,  0, 0, 0, 0, 0, 0, 0,
+    ["Orc", 68, 3, 0, 0, 0, 0, 0, 3, 1, 1,  0, 0, 0, 0, 0, 0, 0,
      0,     0,  0, 0, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0,
      0,     0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0,
-     0,     0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,     0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Dwarves", 69, 3, 0, 0, 0, 0, 0, 5, 1, 1,  0, 0, 0, 0, 0, 0, 0,
+    ["Dwarves", 69, 3, 0, 0, 0, 0, 0, 5, 1, 1,  0, 0, 0, 0, 0, 0, 0,
      0,         0,  3, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Little Snakes",
+    ["Little Snakes",
      70,
      3,
      0,
@@ -3440,9 +3349,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Troll Keepers",
+    ["Troll Keepers",
      71,
      3,
      0,
@@ -3512,9 +3421,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Tower Gremlins",
+    ["Tower Gremlins",
      72,
      3,
      0,
@@ -3584,24 +3493,24 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Full Moon", 73, 3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    ["Full Moon", 73, 3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,
      3,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
      0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+     0,           0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Slasher", 74, 3, 0, 0, 0, 0, 0, 5, 1, 1,  0, 0, 0, 0, 0, 0, 0,
+    ["Slasher", 74, 3, 0, 0, 0, 0, 0, 5, 1, 1,  0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0, 0, 0, 0, 0, 0, 0, -6, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,         0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Ogre", 75, 3, 0, 0, 0, 0, 0, 6, 1, 1,  0, 0, 0, 0, 0, 0, 0,
+    ["Ogre", 75, 3, 0, 0, 0, 0, 0, 6, 1, 1,  0, 0, 0, 0, 0, 0, 0,
      0,      0,  0, 0, 0, 0, 0, 0, 0, 0, -7, 0, 0, 0, 0, 0, 0, 0,
      0,      0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0,
-     0,      0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,      0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Rabid Sheep",
+    ["Rabid Sheep",
      76,
      3,
      0,
@@ -3671,24 +3580,24 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Imp", 77, 3, 0, 0, 0, 0, 0, 5, 1, 1,  0, 0, 0, 0, 0, 0,  0,
+    ["Imp", 77, 3, 0, 0, 0, 0, 0, 5, 1, 1,  0, 0, 0, 0, 0, 0,  0,
      0,     0,  0, 0, 0, 0, 0, 0, 0, 0, -6, 0, 0, 0, 0, 0, -5, -5,
      -5,    0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0,  0,
-     0,     0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,     0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Spizzer", 78, 3, 0,  0, 0, 0, 0, 8, 1, 13,  0, 0, 0, 0, 0, 0, 0,
+    ["Spizzer", 78, 3, 0,  0, 0, 0, 0, 8, 1, 13,  0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0,  0, 0, 0, 0, 0, 0, -10, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0,  0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, -6, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0},
+     0,         0,  0, -6, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0],
 
-    {"Werewolf", 79, 3, 0, 0, 0, 0, 0, 9, 1, 1,  0, 0, 0, 0, 0, 0, 0,
+    ["Werewolf", 79, 3, 0, 0, 0, 0, 0, 9, 1, 1,  0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 0, 0, 0, 0, 0, 0, 0, -9, 0, 0, 0, 0, 0, 0, 0,
      0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0,
-     0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0},
+     0,          0,  0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0],
 
-    {"Corrosion Cloud",
+    ["Corrosion Cloud",
      80,
      3,
      0,
@@ -3758,14 +3667,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Unicorn", 81, 3, 0,  0, 0, 0, 0, 9, 1, 9,   0, 0, 0, 0, 0, 0, 0,
+    ["Unicorn", 81, 3, 0,  0, 0, 0, 0, 9, 1, 9,   0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0,  0, 0, 0, 0, 0, 0, -12, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0,  0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, -8, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0},
+     0,         0,  0, -8, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0],
 
-    {"Elvin Archers",
+    ["Elvin Archers",
      82,
      3,
      0,
@@ -3835,14 +3744,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Succubus", 83, 3, 0, 0, 0, 0, 0, 14, 1,  1, 0, 0,  0, 0, 0, 0, 0,
+    ["Succubus", 83, 3, 0, 0, 0, 0, 0, 14, 1,  1, 0, 0,  0, 0, 0, 0, 0,
      0,          0,  0, 0, 0, 0, 0, 0, 0,  -8, 0, 0, -5, 0, 0, 0, 0, 0,
      0,          0,  0, 0, 0, 0, 0, 0, 0,  0,  0, 0, 0,  0, 0, 0, 0, 0,
-     0,          0,  0, 0, 0, 0, 0, 0, 0,  0,  0, 0, 0,  0, 0, 0, 0},
+     0,          0,  0, 0, 0, 0, 0, 0, 0,  0,  0, 0, 0,  0, 0, 0, 0],
 
-    {"Rock Stompers",
+    ["Rock Stompers",
      84,
      3,
      0,
@@ -3912,14 +3821,14 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Thief", 85, 3, 0, 0, 0, 0, 0,  12,  1, 1, 0, 0, 0, 0, 0, 3, 5,
+    ["Thief", 85, 3, 0, 0, 0, 0, 0,  12,  1, 1, 0, 0, 0, 0, 0, 3, 5,
      0,       0,  0, 0, 0, 0, 0, -5, -10, 0, 0, 0, 0, 0, 0, 0, 0, 0,
      0,       0,  0, 0, 0, 0, 0, 0,  0,   0, 0, 0, 0, 0, 0, 0, 0, 0,
-     0,       0,  0, 0, 0, 0, 0, 0,  0,   0, 0, 0, 0, 0, 0, 0, 0},
+     0,       0,  0, 0, 0, 0, 0, 0,  0,   0, 0, 0, 0, 0, 0, 0, 0],
 
-    {"Stone Giant",
+    ["Stone Giant",
      86,
      3,
      0,
@@ -3989,19 +3898,19 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Vampire", 87, 3, 0, 0, 0, 0,  0, 17, 1,  1,   0, 0, 0, 0, 0, 0, 0,
+    ["Vampire", 87, 3, 0, 0, 0, 0,  0, 17, 1,  1,   0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0, 0, 0, -1,  -5, -10, 0, 0, 0, 0, 0, 0, 0,
      0,         0,  0, 0, 0, 0, 0,  0, 0,  0,  0,   0, 0, 0, 0, 0, 0, 0,
-     0,         0,  0, 0, 0, 0, 0,  0, 0,  0,  0,   0, 0, 0, 0, 0, 0},
+     0,         0,  0, 0, 0, 0, 0,  0, 0,  0,  0,   0, 0, 0, 0, 0, 0],
 
-    {"Dragon", 88, 3, 0, 0, 0, 0,  0, 25,  1, 1,   0, 0, 0, 0, 0, 0, 0,
+    ["Dragon", 88, 3, 0, 0, 0, 0,  0, 25,  1, 1,   0, 0, 0, 0, 0, 0, 0,
      0,        0,  0, 0, 0, 0, -1, 0, -10, 0, -20, 0, 0, 0, 0, 0, 0, 0,
      0,        0,  0, 0, 0, 0, 0,  0, 0,   0, 0,   0, 0, 0, 0, 0, 0, 0,
-     0,        0,  0, 0, 0, 0, 0,  0, 0,   0, 0,   0, 0, 0, 0, 0, 0},
+     0,        0,  0, 0, 0, 0, 0,  0, 0,   0, 0,   0, 0, 0, 0, 0, 0],
 
-    {"Forced Labor",
+    ["Forced Labor",
      28,
      1,
      0,
@@ -4071,9 +3980,9 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
+     0],
 
-    {"Crystallize",
+    ["Crystallize",
      58,
      2,
      0,
@@ -4143,20 +4052,117 @@ ArcomageCard pCardsOld[87] = {
      0,
      0,
      0,
-     0},
-};
+     0],
+]
+
+fields = '''
+pCardName
+slot
+card_resource_type
+needed_quarry_level
+needed_magic_level
+needed_zoo_level
+needed_bricks
+needed_gems
+needed_beasts
+can_be_discarded
+compare_param
+field_30
+draw_extra_card_count
+to_player_quarry_lvl
+to_player_magic_lvl
+to_player_zoo_lvl
+to_player_bricks
+to_player_gems
+to_player_beasts
+to_player_buildings
+to_player_wall
+to_player_tower
+to_enemy_quarry_lvl
+to_enemy_magic_lvl
+to_enemy_zoo_lvl
+to_enemy_bricks
+to_enemy_gems
+to_enemy_beasts
+to_enemy_buildings
+to_enemy_wall
+to_enemy_tower
+to_pl_enm_quarry_lvl
+to_pl_enm_magic_lvl
+to_pl_enm_zoo_lvl
+to_pl_enm_bricks
+to_pl_enm_gems
+to_pl_enm_beasts
+to_pl_enm_buildings
+to_pl_enm_wall
+to_pl_enm_tower
+field_4D
+can_draw_extra_card2
+to_player_quarry_lvl2
+to_player_magic_lvl2
+to_player_zoo_lvl2
+to_player_bricks2
+to_player_gems2
+to_player_beasts2
+to_player_buildings2
+to_player_wall2
+to_player_tower2
+to_enemy_quarry_lvl2
+to_enemy_magic_lvl2
+to_enemy_zoo_lvl2
+to_enemy_bricks2
+to_enemy_gems2
+to_enemy_beasts2
+to_enemy_buildings2
+to_enemy_wall2
+to_enemy_tower2
+to_pl_enm_quarry_lvl2
+to_pl_enm_magic_lvl2
+to_pl_enm_zoo_lvl2
+to_pl_enm_bricks2
+to_pl_enm_gems2
+to_pl_enm_beasts2
+to_pl_enm_buildings2
+to_pl_enm_wall2
+to_pl_enm_tower2
+field_6A
+field_6B
+'''.split()
+
+print("ArcomageCard pCards[87] = {")
+for c in cards:
+  s = '   { '
+  first = True 
+  for no, field in enumerate(fields):
+    if len(c) <= no:
+      print('// Warning: no field %s in card %s' % (field, c[0]))
+      continue
+    
+    
+    if field == 'compare_param' and c[no] == 1:
+      continue
+    elif field == 'compare_param' and c[no] == 0:
+      print('// bad compare param %s in card %s' % (field, c[0]))
+    elif field == 'can_be_discarded' and c[no] == 1:
+      continue
+    elif field == 'can_be_discarded' and c[no] == 0:
+      c[no] == 'false'
+    elif not c[no]:
+      continue
+    
+    if field == 'pCardName':
+        c[no] = '"%s"' % c[no]
+
+    if first:
+      first = False
+    else:
+      s += ', '
+    #if '\n' not in s and len(s) > 80:
+    #  s += '\n     '
+    
+    s += '.%s=%s' % (field, c[no])
+  s += '},'
+  print(s)
+print("}")
 
 
-// DO NOT COMMIT TO OpenEnroth
-#include <memory.h>
-class CardChecker{
-public:
-    CardChecker() {
-        for (int c=0;c<87;c++) {
-            if (memcmp(&pCardsOld[c].slot, &pCards[c].slot, sizeof(ArcomageCard) - ((char*)&pCardsOld[c].slot - (char*)&pCardsOld[c]))) {
-                printf("Error in card %d\n", c);
-            }
-        }
-    }
-};
-CardChecker c;
