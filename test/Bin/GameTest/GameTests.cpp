@@ -1034,6 +1034,17 @@ GAME_TEST(Issues, Issue677) {
                                    {CONDITION_WEAK, CONDITION_WEAK, CONDITION_WEAK, CONDITION_WEAK}));
 }
 
+GAME_TEST(Issues, Issue680) {
+    // Open 3 boxes and move items around
+    // First box content was saved in mm7, second in OE, third is not opened yet.
+    auto items = tapes.totalItemCount();
+    auto gold = tapes.gold();
+
+    test.playTraceFromTestData("issue_680.mm7", "issue_680.json");
+    EXPECT_EQ(items.delta(), 20);
+    EXPECT_EQ(gold.delta(), 832);
+}
+
 GAME_TEST(Issues, Issue689) {
     // Testing that clicking on load game scroll is not crashing the game then there's small amount of saves present.
     std::string savesDir = makeDataPath("saves");
@@ -1641,3 +1652,5 @@ GAME_TEST(Issues, Issue1277) {
     test.playTraceFromTestData("issue_1277.mm7", "issue_1277.json");
     EXPECT_EQ(current_screen_type, SCREEN_CHARACTERS);
 }
+
+
